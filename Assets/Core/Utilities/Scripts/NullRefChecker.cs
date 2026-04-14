@@ -35,18 +35,18 @@ namespace GameSystemsCookbook
                     {
                         GameObject gameObject = monoBehaviour.gameObject;
 
-                        Debug.LogWarning($"Missing assignment for field: {field.Name} in component: {instance.GetType().Name} on GameObject: " +
+                        Debug.LogError($"Missing assignment for field: {field.Name} in component: {instance.GetType().Name} on GameObject: " +
                             $"{monoBehaviour.gameObject}", monoBehaviour.gameObject);
                     }
                     // ... or a ScriptableObect
                     else if (instance is ScriptableObject scriptableObject)
                     {
-                        Debug.LogWarning($"Missing assignment for field: {field.Name} on ScriptableObject:  " +
+                        Debug.LogError($"Missing assignment for field: {field.Name} on ScriptableObject:  " +
                             $"{scriptableObject.name} ({instance.GetType().Name})");
                     }
                     else
                     {
-                        Debug.LogWarning($"Missing assignment for field: {field.Name} in object: {instance.GetType().Name}");
+                        Debug.LogError($"Missing assignment for field: {field.Name} in object: {instance.GetType().Name}");
                     }
 
                 }

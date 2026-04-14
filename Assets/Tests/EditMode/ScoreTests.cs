@@ -17,7 +17,7 @@ namespace PaddleBall.Tests
         [Test]
         public void Score_InitialValue_IsZero()
         {
-            Assert.AreEqual(0, m_Score.Value);
+            Assert.That(m_Score.Value, Is.EqualTo(0));
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace PaddleBall.Tests
         {
             m_Score.IncrementScore();
 
-            Assert.AreEqual(1, m_Score.Value);
+            Assert.That(m_Score.Value, Is.EqualTo(1));
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace PaddleBall.Tests
 
             m_Score.ResetScore();
 
-            Assert.AreEqual(0, m_Score.Value);
+            Assert.That(m_Score.Value, Is.EqualTo(0));
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace PaddleBall.Tests
                 m_Score.IncrementScore();
             }
 
-            Assert.AreEqual(expected, m_Score.Value);
+            Assert.That(m_Score.Value, Is.EqualTo(expected));
         }
     }
 }

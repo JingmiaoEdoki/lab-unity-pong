@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Events;
 using GameSystemsCookbook;
 
 namespace PaddleBall.Tests
@@ -29,13 +30,13 @@ namespace PaddleBall.Tests
 
             m_VoidChannel.RaiseEvent();
 
-            Assert.IsTrue(wasInvoked);
+            Assert.That(wasInvoked, Is.True);
         }
 
         [Test]
         public void VoidEventChannel_NoSubscribers_DoesNotThrow()
         {
-            Assert.DoesNotThrow(() => m_VoidChannel.RaiseEvent());
+            Assert.That(() => m_VoidChannel.RaiseEvent(), Throws.Nothing);
         }
 
         [Test]
@@ -47,7 +48,20 @@ namespace PaddleBall.Tests
 
             m_VoidChannel.RaiseEvent();
 
-            Assert.AreEqual(2, callCount);
+            Assert.That(callCount, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void VoidEventChannel_UnsubscribedListener_IsNotNotified()
+        {
+            bool wasInvoked = false;
+            UnityAction listener = () => wasInvoked = true;
+
+            m_VoidChannel.OnEventRaised += listener;
+            m_VoidChannel.OnEventRaised -= listener;
+            m_VoidChannel.RaiseEvent();
+
+            Assert.That(wasInvoked, Is.False);
         }
     }
 }
