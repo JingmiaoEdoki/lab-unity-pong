@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4501185195738516575}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.59606653, y: 0.48617148, z: -0.07753677}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4501185195738516573
 MonoBehaviour:
@@ -92,12 +92,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PaddlePrefab: {fileID: 1164306026, guid: bfe10eb4c24924b859edd4eae3bfcd1d, type: 3}
+  m_AIPaddlePrefab: {fileID: 3038808030642090207, guid: f773db807f53d104084add3973289daa, type: 3}
   m_BallPrefab: {fileID: 5193053542542995513, guid: 3a5d1eb2913a54ff387b54d53e21cfb5, type: 3}
   m_WallPrefab: {fileID: 2900130655516478032, guid: 3f1a311a1934b467bb70be0ae44a73a6, type: 3}
   m_GoalPrefab: {fileID: 5414390758467235700, guid: c19d0c9a6e3f14e7180bde68dbf4f237, type: 3}
   m_Mode: 0
   m_LevelLayout: {fileID: 11400000, guid: 54cf8d6cda4624893a6033d17b693ca2, type: 2}
   m_InputReader: {fileID: 11400000, guid: 0c4f85247089b4ec6b645cadbab2e09e, type: 2}
+  m_UseAIForPlayer2: 1
+  m_AIPaddleData: {fileID: 11400000, guid: 9aee332352ea2754cbe836a266283cb2, type: 2}
   m_JsonFilename: LevelLayout.json
 --- !u!114 &6726640885309308134
 MonoBehaviour:

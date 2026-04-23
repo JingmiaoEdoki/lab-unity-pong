@@ -28,6 +28,8 @@ namespace GameSystemsCookbook.Demos.PaddleBall
         [Header("Prefabs")]
         [Tooltip("Prefab for player paddles")]
         [SerializeField] private Paddle m_PaddlePrefab;
+        [Tooltip("Prefab for the AI-controlled paddle (used when AI mode is active)")]
+        [SerializeField, Optional] private AIPaddle m_AIPaddlePrefab;
         [Tooltip("Prefab for the ball")]
         [SerializeField] private Ball m_BallPrefab;
         [Tooltip("Prefab for setting up level walls")]
@@ -44,6 +46,12 @@ namespace GameSystemsCookbook.Demos.PaddleBall
         [SerializeField] private LevelLayoutSO m_LevelLayout;
         [Tooltip("Event relayer for Input System actions")]
         [SerializeField] private InputReaderSO m_InputReader;
+
+        [Header("AI Settings")]
+        [Tooltip("Replace Player 2 with an AI-controlled paddle")]
+        [SerializeField] private bool m_UseAIForPlayer2;
+        [Tooltip("AI difficulty parameters (required when AI mode is active)")]
+        [SerializeField, Optional] private AIPaddleDataSO m_AIPaddleData;
 
         [Header("Json Data")]
         [Tooltip("Json file for level data")]
@@ -106,14 +114,23 @@ namespace GameSystemsCookbook.Demos.PaddleBall
         // Create the ball, paddles, walls, and goals.
         public void SetupLevel()
         {
-            CreateBall();
+            Ball ball = CreateBall();
 
             Paddle p1 = CreatePaddle(m_InputReader, m_GameData.Player1);
             SetPaddleSprite(p1, m_GameData.P1Sprite);
 
-            Paddle p2 = CreatePaddle(m_InputReader, m_GameData.Player2);
-            SetPaddleSprite(p2, m_GameData.P2Sprite);
-            p2.transform.Rotate(0f, 0f, 180f);
+            if (m_UseAIForPlayer2)
+            {
+                AIPaddle aiPaddle = CreateAIPaddle();
+                aiPaddle.SetBallTransform(ball.transform);
+                aiPaddle.transform.Rotate(0f, 0f, 180f);
+            }
+            else
+            {
+                Paddle p2 = CreatePaddle(m_InputReader, m_GameData.Player2);
+                SetPaddleSprite(p2, m_GameData.P2Sprite);
+                p2.transform.Rotate(0f, 0f, 180f);
+            }
 
             CreateWalls();
             CreateGoals(m_GameData);
@@ -129,6 +146,13 @@ namespace GameSystemsCookbook.Demos.PaddleBall
             {
                 spriteRenderer.sprite = sprite;
             }
+        }
+
+        public AIPaddle CreateAIPaddle()
+        {
+            AIPaddle aiPaddleInstance = Instantiate(m_AIPaddlePrefab, m_LevelLayout.Paddle2StartPosition, Quaternion.identity);
+            aiPaddleInstance.Initialize(m_GameData, m_AIPaddleData);
+            return aiPaddleInstance;
         }
 
         public Paddle CreatePaddle(InputReaderSO inputReader, PlayerIDSO playerID)
